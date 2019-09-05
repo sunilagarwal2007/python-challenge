@@ -1,3 +1,4 @@
+#Import the libraries
 import csv
 import os
 
@@ -12,13 +13,12 @@ with open(budget_csv, newline="") as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
 
     # This is to skip the header in the csv file
-    next(csvreader)
+    header = next(csvreader)
 
     #Creating empty list
     date = []
     revenue = []
     revenue_change = []
-
 
     # Loop through looking for the video
     for row in csvreader:
@@ -32,12 +32,14 @@ with open(budget_csv, newline="") as csvfile:
 
     for i in range(1, len(revenue)):
         revenue_change.append(revenue[i] - revenue[i-1])
+        #The average of the changes in "Profit/Losses" over the entire period
         avg_revenue_change = sum(revenue_change)/len(revenue_change)
 
         max_revenue_change =  max(revenue_change)
         min_revenue_change = min(revenue_change)
-
+        #The greatest increase in profits (date and amount) over the entire period
         date_for_max_revenue_change = str(date[revenue_change.index(max_revenue_change)+1])
+        #The greatest decrease in losses (date and amount) over the entire period
         date_for_min_revenue_change = str(date[revenue_change.index(min_revenue_change)+1])
 
     print("Average Change: $",float(round(avg_revenue_change,2)))
