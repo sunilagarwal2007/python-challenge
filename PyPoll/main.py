@@ -1,3 +1,4 @@
+#Import the libraries
 import csv
 import os
 
@@ -44,14 +45,14 @@ with open(election_data_csv, newline="") as csvfile:
     outputfile.write(f"Total Votes: {total_votes}  \n")
     outputfile.write("---------------------------- \n")
 
+    #This is to find unique list of candidates
     candidates = set(candidate_list)
     #print("Candidates List: $", candidates)
     max_voting_count=0
     winner = ""
     for candidate_name in candidates:
-        #election_data_analysis(candidate_name,csvreader,total_votes)
         candidates_votes = election_data_analysis(candidate_name, candidate_list, total_votes,outputfile)
-
+        #Calculate the Candidate which got more votes to find winner
         if candidates_votes > max_voting_count:
             max_voting_count = candidates_votes
             winner = candidate_name
